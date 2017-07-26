@@ -1,0 +1,1981 @@
+{
+  "package": "Robin",
+  "tagline": "Robin API",
+  "description": "Robin's API gives developers the power to interact with their team's data (locations, spaces, presence, etc.) and build third-party applications to extend Robin's capabilities..",
+  "image": "https://logo.clearbit.com/robinpowered.com",
+  "repo": "https://github.com/RapidSoftwareSolutions/Marketplace-Robin-Package",
+  "keywords": [
+    "API",
+    "Robin"
+  ],
+  "accounts": {
+    "domain": "robinpowered.com",
+    "credentials": [
+      "accessToken"
+    ]
+  },
+  "blocks": [
+    {
+    "name": "getOrganization",
+    "description": "Get an organization's details.",
+    "args": [{
+      "name": "accessToken",
+      "vendorName": "access_token",
+      "type": "credentials",
+      "info": "Your Robin access token",
+      "required": true
+    },
+      {
+        "name": "id",
+        "type": "String",
+        "info": "The ID or slug (i.e. username) of the organization.",
+        "required": true
+      }
+    ],
+    "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}",
+    "request": {
+      "method": "get",
+      "paramsType": "query",
+      "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+    },
+    "callbacks": [{
+      "name": "error",
+      "info": "Error"
+    }, {
+      "name": "success",
+      "info": "Success"
+    }]
+  },
+    {
+      "name": "getOrganizationLocations",
+      "description": "Get all of an organization's locations.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        },
+        {
+          "name": "query",
+          "type": "String",
+          "info": "Will filter by a specified location name.",
+          "required": false,
+          "bodyInclude": true
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page of the result.",
+          "required": false,
+          "bodyInclude": true
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "How many results are returned per page.",
+          "required": false,
+          "bodyInclude": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/locations",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["query", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "createOrganizationLocation",
+      "description": "Creates a new location for the organization.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "The locations name.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "The locations description.",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "The street address of the location.",
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "String",
+          "info": "A URL containing an image of the location.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/locations",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["name", "description", "address", "image"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getOrganizationUsers",
+      "description": "Get all of users in an organization",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        },
+        {
+          "name": "query",
+          "type": "String",
+          "info": "Will filter by a specified user name.",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page of the result.",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "How many results are returned per page.",
+          "required": false
+        },
+        {
+          "name": "ids",
+          "type": "String",
+          "info": "A comma separated list of IDs to retrieve.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/users",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["query", "page", "per_page", "ids"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "inviteOrganizationUser",
+      "description": "Invites new users to an organization",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "The name of the user to invite.",
+          "required": true
+        },
+        {
+          "name": "email",
+          "type": "String",
+          "info": "The email of the user to invite.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/users",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["name", "email"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getOrganizationUser",
+      "description": "Get details about an organization's user.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "type": "String",
+          "info": "The ID or slug of the user.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/users/{$data['userId']}",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getOrganizationAmenities",
+      "description": "Get details about an organization's amenities.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/amenities",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "createOrganizationAmenities",
+      "description": "Create a new amenity for the organization.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug (i.e. username) of the organization.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "The name of the amenity.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/amenities",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["name"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSingleUser",
+      "description": "Gets a User resource.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug of the user.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/users/{$data['id']}",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getUserPresence",
+      "description": "Gets a list of a User's presence history.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug of the user.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/users/{$data['id']}/presence",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getUserEvents",
+      "description": "Get a user's events.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID or slug of the user.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/users/{$data['id']}/events",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getMe",
+      "description": "Get the current authenticated user.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      }],
+      "url": "https://api.robinpowered.com/me",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getMePresence",
+      "description": "Get the currently authenticated user's presence.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      }],
+      "url": "https://api.robinpowered.com/me/presence",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getMeEvents",
+      "description": "Get the currently authenticated user's events.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      }],
+      "url": "https://api.robinpowered.com/me/events",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSingleLocation",
+      "description": "Returns a Location resource, containing information about the location.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        }
+
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "updateSingleLocation",
+      "description": "Updates a Location resource.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "The location name.",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "The location's description.",
+          "required": false
+        },
+        {
+          "name": "address",
+          "type": "String",
+          "info": "The address of the location. When changed, the longitude and latitude will automatically be recalculated if the address is valid.",
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "String",
+          "info": "A URL containing a photo of the location.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}",
+      "request": {
+        "method": "patch",
+        "paramsType": "json",
+        "bodyParams": ["name", "description", "address", "image"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getLocationSpaces",
+      "description": "Get all of a location's spaces.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        },
+        {
+          "name": "query",
+          "type": "String",
+          "info": "Will filter by a specified space name.",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page of the result.",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "How many results are returned per page.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}/spaces",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["query", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "createLocationSpaces",
+      "description": "Create a new space in the location.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "The name of the space.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "The space's description.",
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "String",
+          "info": "A URL containing a photo of the space.",
+          "required": false
+        },
+        {
+          "name": "capacity",
+          "type": "Number",
+          "info": "The maximum capacity of the space.",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "info": "The space type. Must be a valid type from the list that can be found on the space resource page.",
+          "required": false
+        },
+        {
+          "name": "isAccessible",
+          "vendorName": "is_accessible",
+          "type": "Boolean",
+          "info": "Whether the space meets accessibility requirements for the disabled. A false value means that it is unspecified, not that it does not meet the criteria.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}/spaces",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["name", "description", "image", "capacity", "type", "is_accessible"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getLocationPresence",
+      "description": "Get current presence for a location",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        },
+        {
+          "name": "spaceIds",
+          "vendorName": "space_ids",
+          "type": "String",
+          "info": "A comma separated list of space IDs to filter by.",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page of the result.",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "How many results are returned per page.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}/presence",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["query", "space_ids", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "addPresenceToLocation",
+      "description": "Add presence to a space",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "vendorName": "user_id",
+          "type": "String",
+          "info": "The ID of the user who is present.",
+          "required": false
+        },
+        {
+          "name": "deviceId",
+          "vendorName": "device_id",
+          "type": "String",
+          "info": "The ID of the device reporting the presence. This parameter is only required if user_ref is omitted.",
+          "required": false
+        },
+        {
+          "name": "sessionTtl",
+          "vendorName": "session_ttl",
+          "type": "Number",
+          "info": "How long to extend the presence session for, in seconds. If presence is posted with a TTL of 60 seconds and then again 120 seconds later, Robin will treat these as two separate sessions.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}/presence",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["user_id", "device_id", "session_ttl"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "deletePresenceToLocation",
+      "description": "Expire a user or device's presence in a space",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the location",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "vendorName": "user_id",
+          "type": "String",
+          "info": "The ID of the user who is present.",
+          "required": false
+        },
+        {
+          "name": "deviceId",
+          "vendorName": "device_id",
+          "type": "String",
+          "info": "The ID of the device reporting the presence. This parameter is only required if user_ref is omitted.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/locations/{$data['id']}/presence",
+      "request": {
+        "method": "delete",
+        "paramsType": "json",
+        "bodyParams": ["user_id", "device_id"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSingleSpace",
+      "description": "Get details about a space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space to return.",
+          "required": true
+        },
+        {
+          "name": "spaces",
+          "type": "String",
+          "info": "Optional submodel includes, such as calendar.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["spaces"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "updateSingleSpace",
+      "description": "Update's the properties of an existing Space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space to return.",
+          "required": true
+        },
+        {
+          "name": "name",
+          "type": "String",
+          "info": "The name of space.",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "The space's description.",
+          "required": false
+        },
+        {
+          "name": "discoveryRadius",
+          "vendorName": "discovery_radius",
+          "type": "String",
+          "info": "A decimal number that specifies the distance in meters from a beacon that a person should be standing within to be counted as present in the space.",
+          "required": false
+        },
+        {
+          "name": "capacity",
+          "type": "Number",
+          "info": "The maximum capacity for the space.",
+          "required": false
+        },
+        {
+          "name": "image",
+          "type": "String",
+          "info": "A URL containing an image of the space.",
+          "required": false
+        },
+        {
+          "name": "type",
+          "type": "String",
+          "info": "The space type. Must be a valid type from the list that can be found on the space resource page.",
+          "required": false
+        },
+        {
+          "name": "isAccessible",
+          "vendorName": "is_accessible",
+          "type": "Boolean",
+          "info": "Whether the space meets accessibility requirements for the disabled. A false value means that it is unspecified, not that it does not meet the criteria.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["name", "description", "discovery_radius", "capacity", "image", "type", "is_accessible"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "deleteSingleSpace",
+      "description": "Permanently deletes a Space resource and all of it's related submodels, such as events.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space to remove.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}",
+      "request": {
+        "method": "delete",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSpaceEvents",
+      "description": "Get a list of a space's events.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "after",
+          "type": "String",
+          "info": "Lower bound for an event's end property",
+          "required": false
+        },
+        {
+          "name": "before",
+          "type": "String",
+          "info": "Upper bound for an event's start property",
+          "required": false
+        }, {
+          "name": "creationType",
+          "vendorName": "creation_type",
+          "type": "Select",
+          "options": ["automatic", "manual", "synced"],
+          "info": "Either automatic, manual or synced",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page to return",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "The amount of results to return per page",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/events",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["after", "before", "creation_type", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "createSpaceEvents",
+      "description": "Book an event in a space",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "A title for the event. If omitted, a title will be automatically generated from the space's name and the name of the user that is booking the event.",
+          "required": false
+        },
+        {
+          "name": "startDate",
+          "type": "DatePicker",
+          "info": "A composite datetime / timezone object that represents the start of the event.",
+          "required": true
+        },
+        {
+          "name": "startTimeZone",
+          "type": "String",
+          "info": "A valid IANA timezone identifier, such as America/New_York.",
+          "required": true
+        },
+        {
+          "name": "endDate",
+          "type": "DatePicker",
+          "info": "An ISO-8601 timestamp representing the end of the event.",
+          "required": true
+        },
+        {
+          "name": "endTimeZone",
+          "type": "String",
+          "info": "A valid IANA timezone identifier, such as America/New_York.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description for event. Will show up in meeting invite.",
+          "required": false
+        },
+        {
+          "name": "visibility",
+          "type": "String",
+          "info": "The visibility type. See the event resource page for a list of valid types.",
+          "required": false
+        },
+        {
+          "name": "recurrence",
+          "type": "String",
+          "info": "An array RFC-5545 compliant content-lines that are of the type RRULE, RDATE, and EXDATE.",
+          "required": false
+        },
+        {
+          "name": "invitees",
+          "type": "Array",
+          "info": "The invitees to invite.",
+          "required": false,
+          "structure": [{
+            "name": "email",
+            "type": "String",
+            "info": "The email address of the invitee"
+          },
+            {
+              "name": "display_name",
+              "type": "String",
+              "info": "The name of the invitee."
+            }
+          ]
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/events",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["title", "start", "end", "description", "visibility", "recurrence", "invitees"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSpaceAmenities",
+      "description": "Get the amenities for a space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/amenities",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSingleAmenity",
+      "description": "Get a specific amenity or check if an amenity exists in a space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "amenityId",
+          "type": "Number",
+          "info": "The amenity ID",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/amenities/{$data['amenityId']}",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "addAmenityToSpace",
+      "description": "Adds an amenity to a space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "amenityId",
+          "type": "Number",
+          "info": "The amenity ID",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/amenities/{$data['amenityId']}",
+      "request": {
+        "method": "put",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "removeSpaceAmenity",
+      "description": "Removes an amenity to a space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "amenityId",
+          "type": "Number",
+          "info": "The amenity ID",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/amenities/{$data['amenityId']}",
+      "request": {
+        "method": "delete",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getCurrentPresence",
+      "description": "Get any current presence for a space",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "query",
+          "type": "String",
+          "info": "Will filter by a specified space name",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page of the result",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "How many results are returned per page",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/presence",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["query", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "addPresenceToSpace",
+      "description": "Add presence to a space",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "vendorName": "user_id",
+          "type": "String",
+          "info": "The ID of the user who is present.",
+          "required": false
+        },
+        {
+          "name": "deviceId",
+          "vendorName": "device_id",
+          "type": "String",
+          "info": "The ID of the device reporting the presence. This parameter is only required if user_ref is omitted.",
+          "required": false
+        },
+        {
+          "name": "sessionTtl",
+          "vendorName": "session_ttl",
+          "type": "Number",
+          "info": "How long to extend the presence session for, in seconds. If presence is posted with a TTL of 60 seconds and then again 120 seconds later, Robin will treat these as two separate sessions.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/presence",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["user_id", "device_id", "session_ttl"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "removePresenceFromSpace",
+      "description": "Expire a user or device's presence in a space",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "userId",
+          "vendorName": "user_id",
+          "type": "String",
+          "info": "The ID of the user who is present.",
+          "required": false
+        },
+        {
+          "name": "deviceId",
+          "vendorName": "device_id",
+          "type": "String",
+          "info": "The ID of the device reporting the presence. This parameter is only required if user_ref is omitted.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/presence",
+      "request": {
+        "method": "delete",
+        "paramsType": "json",
+        "bodyParams": ["user_id", "device_id"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSpaceDevices",
+      "description": "Returns a list of devices that belong to the Space resource. This is indicative of hardware that is physically inside the space, such as a beacon, motion sensor, or projector.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        },
+        {
+          "name": "manifest",
+          "type": "String",
+          "info": "When provided, results will be filtered by the specified device manifest",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page of the result",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "How many results are returned per page",
+          "required": false
+        }
+
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/devices",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["manifest", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getStateAvailability",
+      "description": "Gets the availability state for the space.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the space",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/spaces/{$data['id']}/state",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getSingleEvent",
+      "description": "Get an event.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the event",
+          "required": true
+        },
+        {
+          "name": "include",
+          "type": "String",
+          "info": "Optional submodel includes, such as confirmation and space.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/events/{$data['id']}",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "updateSingleEvent",
+      "description": "Update's the properties of an existing Event.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the event",
+          "required": true
+        },
+        {
+          "name": "title",
+          "type": "String",
+          "info": "A title for the event. If omitted, a title will be automatically generated from the space's name and the name of the user that is booking the event.",
+          "required": false
+        },
+        {
+          "name": "startDate",
+          "type": "DatePicker",
+          "info": "A composite datetime / timezone object that represents the start of the event.",
+          "required": false
+        },
+        {
+          "name": "startTimeZone",
+          "type": "String",
+          "info": "A valid IANA timezone identifier, such as America/New_York.",
+          "required": false
+        },
+        {
+          "name": "endDate",
+          "type": "DatePicker",
+          "info": "An ISO-8601 timestamp representing the end of the event.",
+          "required": false
+        },
+        {
+          "name": "endTimeZone",
+          "type": "String",
+          "info": "A valid IANA timezone identifier, such as America/New_York.",
+          "required": false
+        },
+        {
+          "name": "description",
+          "type": "String",
+          "info": "Description for event. Will show up in meeting invite.",
+          "required": false
+        },
+        {
+          "name": "visibility",
+          "type": "String",
+          "info": "The visibility type. See the event resource page for a list of valid types.",
+          "required": false
+        },
+        {
+          "name": "recurrence",
+          "type": "String",
+          "info": "An array RFC-5545 compliant content-lines that are of the type RRULE, RDATE, and EXDATE.",
+          "required": false
+        },
+        {
+          "name": "invitees",
+          "type": "Array",
+          "info": "The invitees to invite.",
+          "required": false,
+          "structure": [{
+            "name": "email",
+            "type": "String",
+            "info": "The email address of the invitee"
+          },
+            {
+              "name": "display_name",
+              "type": "String",
+              "info": "The name of the invitee."
+            }
+          ]
+        }
+      ],
+      "url": "https://api.robinpowered.com/events/{$data['id']}",
+      "request": {
+        "method": "post",
+        "paramsType": "json",
+        "bodyParams": ["title", "start", "end", "description", "visibility", "recurrence", "invitees"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getEventConfirmation",
+      "description": "Gets the confirmation or checks if a confirmation exists for an event.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the event",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/events/{$data['id']}/confirmation",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "confirmEvent",
+      "description": "Confirms an event.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the event",
+          "required": true
+        },
+        {
+          "name": "deviceId",
+          "vendorName": "device_id",
+          "type": "Number",
+          "info": "Required if not authorized as a user.",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/events/{$data['id']}/confirmation",
+      "request": {
+        "method": "put",
+        "paramsType": "json",
+        "bodyParams": ["device_id"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "removeConfirmForEvent",
+      "description": "Removes a confirmation for an event.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the event",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/events/{$data['id']}/confirmation",
+      "request": {
+        "method": "delete",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "removeEvent",
+      "description": "Cancels an event.",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "id",
+          "type": "String",
+          "info": "The ID of the event",
+          "required": true
+        }
+      ],
+      "url": "https://api.robinpowered.com/events/{$data['id']}",
+      "request": {
+        "method": "delete",
+        "paramsType": "query",
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "searchSpaces",
+      "description": "Search space availability based on multiple parameters and get back results in a `Best Fit` order",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "locationIds",
+          "vendorName": "location_ids",
+          "type": "String",
+          "info": "One or more location IDs, separated by commas. Will include all spaces in the given locations in the result.",
+          "required": false
+        },
+        {
+          "name": "spaceIds",
+          "vendorName": "space_ids",
+          "type": "String",
+          "info": "One or more space IDs, separated by commas. Can be combined with location_ids",
+          "required": false
+        },
+        {
+          "name": "after",
+          "type": "DatePicker",
+          "info": "Lower bound for free-busy query, as a valid ISO8601 DateTime format.",
+          "required": false
+        },
+        {
+          "name": "before",
+          "type": "DatePicker",
+          "info": "Upper bound for free-busy query, as a valid ISO8601 DateTime format.",
+          "required": false
+        },
+        {
+          "name": "duration",
+          "type": "Number",
+          "info": "The amount of time required between two events for a space to be considered `free`, as a valid ISO8601 DateTime period. (eg. `PT60M`)",
+          "required": false
+        },
+        {
+          "name": "types",
+          "type": "String",
+          "info": "Comma separated space types. Unmatched spaces will be filtered out entirely.",
+          "required": false
+        },
+        {
+          "name": "amenityIds",
+          "vendor_name": "amenity_ids",
+          "type": "String",
+          "info": "Comma separated amenity IDs. Unmatched spaces will be filtered out entirely.",
+          "required": false
+        },
+        {
+          "name": "query",
+          "type": "String",
+          "info": "Space name filter. Unmatched spaces will be filtered out entirely.",
+          "required": false
+        },
+        {
+          "name": "minCapacity",
+          "vendor_name": "min_capacity",
+          "type": "String",
+          "info": "Filter for max space capacity. Unmatched spaces will be filtered out entirely.",
+          "required": false
+        },
+        {
+          "name": "maxCapacity",
+          "vendor_name": "max_capacity",
+          "type": "String",
+          "info": "Filter for max space capacity. Unmatched spaces will be filtered out entirely.",
+          "required": false
+        },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page to return.",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "The amount of results to return per page.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/free-busy/spaces",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["location_ids", "space_ids", "after", "before", "duration", "types", "amenity_ids", "query", "min_capacity", "max_capacity", "page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    },
+    {
+      "name": "getDeviceManifests",
+      "description": "Get a list of supported device manifests",
+      "args": [{
+        "name": "accessToken",
+        "vendorName": "access_token",
+        "type": "credentials",
+        "info": "Your Robin access token",
+        "required": true
+      },
+        {
+          "name": "page",
+          "type": "Number",
+          "info": "The page to return.",
+          "required": false
+        },
+        {
+          "name": "perPage",
+          "vendorName": "per_page",
+          "type": "Number",
+          "info": "The amount of results to return per page.",
+          "required": false
+        }
+      ],
+      "url": "https://api.robinpowered.com/v1.0/device-manifests",
+      "request": {
+        "method": "get",
+        "paramsType": "query",
+        "bodyParams": ["page", "per_page"],
+        "headers": "['Authorization' => 'Access-Token ' . $data['access_token']]"
+      },
+      "callbacks": [{
+        "name": "error",
+        "info": "Error"
+      }, {
+        "name": "success",
+        "info": "Success"
+      }]
+    }
+  ]
+}
