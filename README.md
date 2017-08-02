@@ -6,8 +6,9 @@ Robin's API gives developers the power to interact with their team's data (locat
 * Credentials: accessToken
 
 ## How to get credentials: 
-0. Item one 
-1. Item two
+1. Navigate to your [Robin dashboard](https://dashboard.robinpowered.com/rapidapi/settings/integrations).
+2. Open Settings -> Integrations.
+3. Click ```Generate new token```
  
 ## Robin.getOrganization
 Get an organization's details.

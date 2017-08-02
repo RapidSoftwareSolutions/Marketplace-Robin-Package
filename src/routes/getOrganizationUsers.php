@@ -19,6 +19,11 @@ $app->post('/api/Robin/getOrganizationUsers', function ($request, $response) {
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
     $requestBody = \Models\Params::createRequestBody($data, $bodyParams);
 
+
+    if(!empty($requestBody['ids'])){
+        $requestBody['ids'] = implode($requestBody['ids']);
+    }
+
     $client = $this->httpClient;
     $query_str = "https://api.robinpowered.com/v1.0/organizations/{$data['id']}/users";
 

@@ -19,6 +19,22 @@ $app->post('/api/Robin/searchSpaces', function ($request, $response) {
     $data = \Models\Params::createParams($requiredParams, $optionalParams, $post_data['args']);
     $requestBody = \Models\Params::createRequestBody($data, $bodyParams);
 
+    if(!empty($requestBody['location_ids'])){
+        $requestBody['location_ids'] = implode($requestBody['location_ids']);
+    }
+
+    if(!empty($requestBody['space_ids'])){
+        $requestBody['space_ids'] = implode($requestBody['space_ids']);
+    }
+
+    if(!empty($requestBody['types'])){
+        $requestBody['types'] = implode($requestBody['types']);
+    }
+
+    if(!empty($requestBody['amenity_ids'])){
+        $requestBody['amenity_ids'] = implode($requestBody['amenity_ids']);
+    }
+
     $client = $this->httpClient;
     $query_str = "https://api.robinpowered.com/v1.0/free-busy/spaces";
 

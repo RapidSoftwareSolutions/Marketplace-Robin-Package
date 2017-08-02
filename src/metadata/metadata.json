@@ -177,9 +177,14 @@
                 },
                 {
                     "name": "ids",
-                    "type": "String",
-                    "info": "A comma separated list of IDs to retrieve.",
-                    "required": false
+                    "type": "List",
+                    "info": "List of IDs to retrieve.",
+                    "required": false,
+                    "structure":{
+                        "name": "id",
+                        "type": "String",
+                        "info": "Single id."
+                    }
                 }
             ],
             "callbacks": [
@@ -1684,15 +1689,27 @@
                 },
                 {
                     "name": "locationIds",
-                    "type": "String",
+                    "vendorName": "location_ids",
+                    "type": "List",
                     "info": "One or more location IDs, separated by commas. Will include all spaces in the given locations in the result.",
-                    "required": false
+                    "required": false,
+                    "structure": {
+                        "name": "id",
+                        "type": "String",
+                        "info": "Single location id"
+                    }
                 },
                 {
                     "name": "spaceIds",
-                    "type": "String",
+                    "vendorName": "space_ids",
+                    "type": "List",
                     "info": "One or more space IDs, separated by commas. Can be combined with location_ids",
-                    "required": false
+                    "required": false,
+                    "structure": {
+                        "name": "id",
+                        "type": "String",
+                        "info": "Single space id"
+                    }
                 },
                 {
                     "name": "after",
@@ -1714,16 +1731,26 @@
                 },
                 {
                     "name": "types",
-                    "type": "String",
+                    "type": "List",
                     "info": "Comma separated space types. Unmatched spaces will be filtered out entirely.",
-                    "required": false
+                    "required": false,
+                    "structure": {
+                        "name": "id",
+                        "type": "String",
+                        "info": "Single type"
+                    }
                 },
                 {
                     "name": "amenityIds",
                     "vendor_name": "amenity_ids",
-                    "type": "String",
+                    "type": "List",
                     "info": "Comma separated amenity IDs. Unmatched spaces will be filtered out entirely.",
-                    "required": false
+                    "required": false,
+                    "structure": {
+                        "name": "id",
+                        "type": "String",
+                        "info": "Single amenity id"
+                    }
                 },
                 {
                     "name": "query",
